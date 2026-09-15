@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
       minimizeToggle.setAttribute("aria-expanded", String(!isMinimized));
       minimizeToggle.setAttribute("aria-label", isMinimized ? "Restaurar chat" : "Minimizar chat");
       minimizeToggle.title = isMinimized ? "Restaurar chat" : "Minimizar chat";
-      minimizeToggle.querySelector("span").textContent = isMinimized ? "+" : "−";
+      minimizeToggle.querySelector("span").textContent = isMinimized ? "💬" : "−";
       minimizeToggle.querySelector(".minimize-label").textContent = isMinimized ? "Abrir chat" : "Minimizar";
     });
   }
