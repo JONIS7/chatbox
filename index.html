@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRT-8 Localiza | Guia Interno de Chamados e Varas</title>
+  <meta name="description" content="Chatbot e localizador interno dos prédios do TRT-8 em Belém para estagiários e técnicos em atendimento de chamados.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Fonte Inter do Google Fonts para máxima legibilidade -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- CABEÇALHO INSTITUCIONAL -->
+  <header class="app-header">
+    <div class="brand-container">
+      <button class="mobile-toggle-btn" id="mobileToggle" aria-label="Abrir Menu Lateral">☰</button>
+      <div class="brand-icon">⚖️</div>
+      <div class="brand-info">
+        <h1>TRT-8 LOCALIZA <span class="brand-badge">Suporte TI</span></h1>
+        <div class="brand-subtitle">
+          <span>Complexo de Belém • Fórum & Edifício-Sede</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button class="btn-header accent icon-only" id="btnAbrirSugerir" title="Sugerir ou atualizar local" aria-label="Sugerir ou atualizar local">
+        <span aria-hidden="true">➕</span><span class="header-action-label">Sugerir / Atualizar Local</span>
+      </button>
+      <button class="btn-header icon-only" id="btnAbrirModeracao" title="Abrir moderação" aria-label="Abrir moderação">
+        <span aria-hidden="true">🛡️</span><span class="header-action-label">Moderação</span>
+        <span class="badge-counter" id="moderationCounter" style="display:none;">0</span>
+      </button>
+      <button class="btn-header btn-minimize" id="minimizeToggle" type="button" title="Minimizar chat" aria-label="Minimizar chat" aria-expanded="true">
+        <span aria-hidden="true">−</span><span class="minimize-label">Minimizar</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTAINER PRINCIPAL -->
+  <div class="app-container">
+
+    <!-- BARRA LATERAL (MAPA DE ANDARES E PRÉDIOS) -->
+    <aside class="app-sidebar" id="sidebar">
+      <!-- Seção Prédios -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">
+          <span>🏢 Complexo de Belém</span>
+        </div>
+        
+        <div class="predio-card active" data-predio="Fórum Trabalhista">
+          <div class="predio-name">🏛️ Fórum Trabalhista</div>
+          <div class="predio-addr">Ed. Des. Alencastro • Tv. D. Pedro I, 698</div>
+          <div style="font-size:0.7rem; color:#b45309; font-weight:600; margin-top:3px;">
+            📍 1ª a 19ª Vara, Protocolo, CEJUSC, OAB
+          </div>
+        </div>
+
+        <div class="predio-card" data-predio="Edifício-Sede">
+          <div class="predio-name">🏛️ Edifício-Sede TRT-8</div>
+          <div class="predio-addr">Tv. Dom Pedro I, 746 (Praça Brasil)</div>
+          <div style="font-size:0.7rem; color:#2563eb; font-weight:600; margin-top:3px;">
+            📍 SETIN/TI, Turmas, Presidência, Pleno
+          </div>
+        </div>
+      </div>
+
+      <!-- Seção Filtro Rápido por Andar -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">
+          <span>📌 Andar do Chamado</span>
+        </div>
+        <div class="floors-grid">
+          <button class="floor-btn" data-floor="1">Térreo / 1º</button>
+          <button class="floor-btn" data-floor="2">2º Andar</button>
+          <button class="floor-btn" data-floor="3">3º Andar</button>
+          <button class="floor-btn" data-floor="4">4º Andar</button>
+          <button class="floor-btn" data-floor="5">5º Andar</button>
+          <button class="floor-btn" data-floor="6">6º Andar</button>
+          <button class="floor-btn" data-floor="7">7º Andar</button>
+          <button class="floor-btn" data-floor="8">8º Andar</button>
+          <button class="floor-btn" data-floor="9">9º Andar</button>
+          <button class="floor-btn" data-floor="10">10º Andar</button>
+          <button class="floor-btn" data-floor="11">11º Andar</button>
+          <button class="floor-btn" data-floor="0" style="color:var(--text-muted);">Datacenter</button>
+        </div>
+      </div>
+
+      <!-- Dica de Chamado para o Estagiário -->
+      <div class="sidebar-section" style="border-bottom:none; margin-top:auto;">
+        <div class="tip-box">
+          <div class="tip-box-title">
+            <span>💡</span> Dicas de Suporte Técnico
+          </div>
+          <div class="tip-box-content">
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL DO CHAT -->
+    <main class="chat-main">
+      
+      <!-- Barra Superior de Chips com Atalhos Rápidos -->
+      <div class="quick-chips-bar">
+        <button class="quick-chip" data-query="todas as varas">
+          🏢 <strong>Varas de Belém (1ª a 19ª)</strong>
+        </button>
+        <button class="quick-chip" data-query="ti suporte setin">
+          💻 <strong>TI / SETIN / Suporte</strong>
+        </button>
+        <button class="quick-chip" data-query="turmas julgamento pleno">
+          ⚖️ <strong>Turmas & Pleno (2º Grau)</strong>
+        </button>
+        <button class="quick-chip" data-query="presidencia vice corregedoria gabinetes">
+          🏛️ <strong>Presidência & Gabinetes</strong>
+        </button>
+        <button class="quick-chip" data-query="protocolo cejusc oab">
+          📦 <strong>Protocolo & CEJUSC</strong>
+        </button>
+        <button class="quick-chip" data-query="copa refeitorio restaurante">
+          ☕ <strong>Copa / Refeitório</strong>
+        </button>
+      </div>
+
+      <!-- Histórico de Mensagens do Chat -->
+      <div class="chat-messages" id="chatMessages">
+        
+        <!-- Cartão de Boas-Vindas -->
+        <div class="welcome-hero">
+          <div class="welcome-avatar">🏛️</div>
+          <div class="welcome-text">
+            <h2>Bem-vindo ao TRT-8 Localiza!</h2>
+            <p>
+              Sou o seu assistente de localização rápida do Tribunal. Diga para qual vara, gabinete ou setor você precisa ir para atender o seu chamado e eu te informo o <strong>prédio, andar, corredor de acesso, ramal e dicas técnicas</strong>.
+            </p>
+            <div class="welcome-examples">
+              <span style="font-size:0.75rem; color:var(--text-muted); align-self:center;">Experimente clicar:</span>
+              <button class="example-btn" data-query="Onde fica a 7ª vara?">Onde fica a 7ª vara?</button>
+              <button class="example-btn" data-query="Onde fica o suporte de TI?">Onde fica o suporte de TI?</button>
+              <button class="example-btn" data-query="Onde é a 2ª Turma?">Onde é a 2ª Turma?</button>
+              <button class="example-btn" data-query="O que tem no 4º andar?">O que tem no 4º andar?</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Formulário de Entrada do Chat -->
+      <div class="chat-input-container">
+        <form class="chat-input-form" id="chatForm">
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              id="chatInput" 
+              class="chat-input" 
+              placeholder="Ex: Onde fica a 12ª Vara? Qual andar da SETIN? Onde é o CEJUSC?" 
+              autocomplete="off"
+            >
+          </div>
+          <button type="submit" class="btn-send" title="Enviar Pergunta">
+            ➤
+          </button>
+        </form>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL: SUGERIR / ATUALIZAR NOVO LOCAL -->
+  <div class="modal-backdrop" id="modalSugerir">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3><span>➕</span> Sugerir Novo Local ou Correção</h3>
+        <button class="btn-close-modal" aria-label="Fechar Modal">✕</button>
+      </div>
+      <form id="formSugerir">
+        <div class="modal-body">
+          <p style="font-size:0.84rem; color:var(--text-muted);">
+            Encontrou uma sala nova, gabinete de desembargador ou mudança recente de andar? Cadastre aqui! Sua contribuição passará pelo <strong>Painel de Moderação</strong> antes de entrar para todos no chatbox.
+          </p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="sugTipo">Tipo de Registro <span class="req">*</span></label>
+              <select id="sugTipo" class="form-control" required>
+                <option value="novo">Novo Local / Sala / Gabinete</option>
+                <option value="correcao">Correção de Local Existente</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="sugPredio">Prédio <span class="req">*</span></label>
+              <select id="sugPredio" class="form-control" required>
+                <option value="Fórum Trabalhista (Ed. Alencastro)">Fórum Trabalhista (Tv. D. Pedro I, 698)</option>
+                <option value="Edifício-Sede">Edifício-Sede (Tv. D. Pedro I, 746)</option>
+                <option value="Anexo / Externo">Anexo / Externo</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="sugNome">Nome do Local / Gabinete / Vara <span class="req">*</span></label>
+            <input type="text" id="sugNome" class="form-control" placeholder="Ex: Gabinete Des. Silva, Sala de Treinamento 2..." required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="sugAndar">Andar <span class="req">*</span></label>
+              <select id="sugAndar" class="form-control" required>
+                <option value="Térreo">Térreo</option>
+                <option value="1º Andar">1º Andar</option>
+                <option value="2º Andar">2º Andar</option>
+                <option value="3º Andar">3º Andar</option>
+                <option value="4º Andar">4º Andar</option>
+                <option value="5º Andar">5º Andar</option>
+                <option value="6º Andar">6º Andar</option>
+                <option value="7º Andar">7º Andar</option>
+                <option value="8º Andar">8º Andar</option>
+                <option value="9º Andar">9º Andar</option>
+                <option value="10º Andar">10º Andar</option>
+                <option value="11º Andar">11º Andar</option>
+                <option value="Subsolo">Subsolo</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="sugRamal">Ramal / Telefone</label>
+              <input type="text" id="sugRamal" class="form-control" placeholder="Ex: 7123">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="sugReferencia">Ponto de Referência / Como Chegar <span class="req">*</span></label>
+            <textarea id="sugReferencia" class="form-control" rows="2" placeholder="Ex: Ao sair do elevador, virar à direita no final do corredor, porta 305." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="sugDica">Dica Útil para o Atendimento de Chamado</label>
+            <textarea id="sugDica" class="form-control" rows="2" placeholder="Ex: Tomadas 110V ficam atrás da divisória do assessor. Ponto de rede identificado como P-12."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="sugEstagiario">Seu Nome / Identificação</label>
+            <input type="text" id="sugEstagiario" class="form-control" placeholder="Ex: Carlos (Estagiário de TI)">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-card-action btn-close-modal">Cancelar</button>
+          <button type="submit" class="btn-header accent" style="padding:0.5rem 1.2rem;">Enviar para Aprovação</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: PAINEL DE MODERAÇÃO E APROVAÇÃO -->
+  <div class="modal-backdrop" id="modalModeracao">
+    <div class="modal-dialog" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3><span>🛡️</span> Painel de Moderação de Locais</h3>
+        <button class="btn-close-modal" aria-label="Fechar Modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="display:flex; justify-content:space-between; align-items:center; background:var(--bg-app); padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+          <div style="font-size:0.82rem; color:var(--text-muted);">
+             Aprove ou rejeite sugestões. Locais aprovados entram instantaneamente no banco de dados ativo do chat.
+          </div>
+          <button id="btnExportarDados" class="btn-card-action" style="white-space:nowrap;">
+             Exportar JSON
+          </button>
+        </div>
+
+        <div class="moderation-table-wrap" id="listaSugestoes" style="margin-top:0.6rem;">
+          <!-- Itens preenchidos via JavaScript -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-card-action btn-close-modal">Fechar Painel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIPIENTE DE NOTIFICAÇÕES (TOAST) -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- SCRIPTS -->
+  <script src="dados_locais.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
