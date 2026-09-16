@@ -258,113 +258,6 @@ body.chat-minimized .btn-minimize {
   min-width: 0;
 }
 
-/* Barra Lateral de Andares e Acesso Rápido */
-.app-sidebar {
-  width: 290px;
-  background: var(--bg-sidebar);
-  border-right: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  transition: transform 0.3s ease;
-}
-
-.sidebar-section {
-  padding: 1rem 1.1rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.sidebar-title {
-  font-size: 0.76rem;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
-  margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.predio-card {
-  background: var(--bg-app);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 0.75rem;
-  margin-bottom: 0.6rem;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.predio-card:hover, .predio-card.active {
-  border-color: var(--trt-blue-500);
-  background: var(--trt-blue-50);
-}
-
-.predio-name {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--trt-blue-900);
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.predio-addr {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
-
-/* Grid de Andares Rápidos */
-.floors-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.4rem;
-}
-
-.floor-btn {
-  background: var(--bg-app);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  padding: 0.45rem 0.2rem;
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: var(--text-main);
-  cursor: pointer;
-  text-align: center;
-  transition: var(--transition);
-}
-
-.floor-btn:hover {
-  background: var(--trt-blue-100);
-  border-color: var(--trt-blue-500);
-  color: var(--trt-blue-800);
-}
-
-/* Dica de ouro para estagiários */
-.tip-box {
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-  border: 1px solid #bfdbfe;
-  border-radius: var(--radius-md);
-  padding: 0.8rem;
-  font-size: 0.75rem;
-}
-
-.tip-box-title {
-  font-weight: 700;
-  color: var(--trt-blue-900);
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-bottom: 0.25rem;
-}
-
-.tip-box-content {
-  color: #1e3a8a;
-  line-height: 1.4;
-}
-
 /* Área Principal do Chat */
 .chat-main {
   flex: 1;
@@ -1129,23 +1022,6 @@ body.chat-minimized .btn-minimize {
     padding: 0.7rem;
   }
 
-  .app-sidebar {
-    position: absolute;
-    top: 48px;
-    bottom: 0;
-    left: 0;
-    z-index: 30;
-    transform: translateX(-100%);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .app-sidebar.open {
-    transform: translateX(0);
-  }
-
-  .mobile-toggle-btn {
-    display: inline-flex !important;
-  }
 }
 
 @media (max-width: 520px) {
@@ -1192,13 +1068,4 @@ body.chat-minimized .btn-minimize {
   .modal-dialog {
     max-height: 94vh;
   }
-}
-
-.mobile-toggle-btn {
-  display: none;
-  background: transparent;
-  border: none;
-  color: #ffffff;
-  font-size: 1.25rem;
-  cursor: pointer;
 }

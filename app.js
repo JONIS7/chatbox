@@ -12,8 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatMessages = document.getElementById("chatMessages");
   const chatForm = document.getElementById("chatForm");
   const chatInput = document.getElementById("chatInput");
-  const sidebar = document.getElementById("sidebar");
-  const mobileToggle = document.getElementById("mobileToggle");
   const moderationCounter = document.getElementById("moderationCounter");
   const minimizeToggle = document.getElementById("minimizeToggle");
 
@@ -27,12 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
   atualizarContadorModeracao();
 
   // Event Listeners Globais
-  if (mobileToggle) {
-    mobileToggle.addEventListener("click", () => {
-      sidebar.classList.toggle("open");
-    });
-  }
-
   if (minimizeToggle) {
     minimizeToggle.addEventListener("click", () => {
       const isMinimized = document.body.classList.toggle("chat-minimized");
@@ -65,37 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const label = chip.textContent.trim();
       adicionarMensagemUsuario(label);
       exibirDigitandoEProcessar(query);
-    });
-  });
-
-  // Filtro de Andares na Barra Lateral
-  document.querySelectorAll(".floor-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const andarStr = btn.getAttribute("data-floor");
-      const andarNum = parseInt(andarStr, 10);
-      const label = andarNum === 1 ? "Térreo / 1º Andar" : `${andarNum}º Andar`;
-      
-      adicionarMensagemUsuario(`O que tem no ${label}?`);
-      exibirDigitandoEProcessar(`andar ${andarNum}`);
-      
-      // Fecha sidebar no mobile
-      if (window.innerWidth <= 860) {
-        sidebar.classList.remove("open");
-      }
-    });
-  });
-
-  // Filtro por Prédio
-  document.querySelectorAll(".predio-card").forEach(card => {
-    card.addEventListener("click", () => {
-      const predio = card.getAttribute("data-predio");
-      const nome = card.querySelector(".predio-name").textContent.trim();
-      adicionarMensagemUsuario(`O que funciona no ${nome}?`);
-      exibirDigitandoEProcessar(predio);
-
-      if (window.innerWidth <= 860) {
-        sidebar.classList.remove("open");
-      }
     });
   });
 
@@ -294,15 +255,33 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    const categoriaAlvo = termoTratado.includes("turma") ? "turmas" : (termoTratado.includes("vara") || termoTratado.includes("vt")) ? "varas" : null;
+    const pool = categoriaAlvo ? locais.filter(loc => loc.categoria === categoriaAlvo) : locais;
+
+    // Uma sigla digitada sozinha deve apontar para o cadastro daquela unidade,
+    // sem também retornar setores-pai que tenham a sigla nas tags.
+    if (/^[a-z0-9]+$/i.test(termoTratado)) {
+      const siglaExata = pool.filter(loc => normalizarTexto(loc.sigla || "") === termoTratado);
+      if (siglaExata.length === 1) {
+        return siglaExata;
+      }
+    }
+
     // 1. VERIFICAÇÃO DIRETA: Consulta específica por número de VARA
     // Exemplos: "4 vara", "vara 4", "4ª vara", "vt 4", "vt4", "4 vt"
     const regexVara = /(?:(?:vara|vt)\s*(\d{1,2})|(\d{1,2})\s*(?:vara|vt)|(\d{1,2})(?:a|ª)\s*vara)/;
     const matchVara = termoTratado.match(regexVara);
     if (matchVara) {
-      const numVara = matchVara[1] || matchVara[2] || matchVara[3];
-      const varaExata = locais.find(l => l.categoria === "varas" && (l.tags.includes(numVara) || l.sigla.includes(`${numVara}ª`)));
+      const numVara = String(matchVara[1] || matchVara[2] || matchVara[3]);
+      const varaExata = pool.find(l => l.categoria === "varas" && (
+        l.tags.includes(numVara) ||
+        l.tags.includes(`${numVara}a`) ||
+        l.tags.includes(`${numVara}ª`) ||
+        (l.sigla && l.sigla.toLowerCase().includes(`${numVara}ª`)) ||
+        (l.sigla && l.sigla.toLowerCase().includes(`${numVara}a`))
+      ));
       if (varaExata) {
-        return [varaExata]; // Retorna unicamente a vara solicitada
+        return [varaExata];
       }
     }
 
@@ -311,8 +290,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const regexTurma = /(?:turma\s*(\d{1,2})|(\d{1,2})\s*turma)/;
     const matchTurma = termoTratado.match(regexTurma);
     if (matchTurma) {
-      const numTurma = matchTurma[1] || matchTurma[2];
-      const turmaExata = locais.find(l => l.categoria === "turmas" && (l.tags.includes(`turma ${numTurma}`) || l.sigla.includes(`${numTurma}ª`)));
+      const numTurma = String(matchTurma[1] || matchTurma[2]);
+      const turmaExata = pool.find(l => l.categoria === "turmas" && (l.tags.includes(`turma ${numTurma}`) || l.sigla.includes(`${numTurma}ª`)));
       if (turmaExata) {
         return [turmaExata];
       }
@@ -330,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 4. Avaliação de Relevância por Pontuação
     const pontuados = [];
 
-    locais.forEach(loc => {
+    pool.forEach(loc => {
       const nomeNorm = normalizarTexto(loc.nome);
       const siglaNorm = normalizarTexto(loc.sigla || "");
       const tagsNorm = normalizarTexto((loc.tags || []).join(" "));
@@ -471,6 +450,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Gera o Card Visual Estruturado
   function renderizarCardLocal(loc) {
+    const temRamal = Boolean(loc.ramal && loc.ramal !== "-");
+    const temTelefone = Boolean(loc.telefone && loc.telefone !== "-");
+    const temEmail = Boolean(loc.email && loc.email !== "-");
+
     return `
       <div class="location-card" id="card-${loc.id}">
         <div class="location-card-header">
@@ -496,16 +479,16 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
           </div>
 
-          ${loc.ramal ? `
+          ${temRamal || temTelefone ? `
           <div class="location-item">
             <span class="location-item-icon">📞</span>
             <div>
               <span class="location-item-label">Ramal / Telefone:</span>
-              <span class="location-item-value"><strong>${escaparHtml(loc.ramal)}</strong> ${loc.telefone ? `(${escaparHtml(loc.telefone)})` : ''}</span>
+              <span class="location-item-value">${temRamal ? `<strong>${escaparHtml(loc.ramal)}</strong>` : ''}${temRamal && temTelefone ? ' ' : ''}${temTelefone ? `(${escaparHtml(loc.telefone)})` : ''}</span>
             </div>
           </div>` : ''}
 
-          ${loc.email ? `
+          ${temEmail ? `
           <div class="location-item">
             <span class="location-item-icon">✉️</span>
             <div>
@@ -526,7 +509,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <button class="btn-card-action" onclick="copiarInfoLocal('${loc.id}')">
             📋 Copiar Localização
           </button>
-          ${loc.ramal ? `
+          ${temRamal ? `
           <button class="btn-card-action" onclick="copiarRamal('${loc.ramal}')">
             📞 Ramal ${loc.ramal}
           </button>` : ''}
