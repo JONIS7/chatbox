@@ -253,7 +253,7 @@ body.chat-minimized .btn-minimize {
 .app-container {
   display: flex;
   flex: 1;
-  height: calc(100vh - 54px);
+  height: 100vh;
   overflow: hidden;
   min-width: 0;
 }
@@ -266,40 +266,6 @@ body.chat-minimized .btn-minimize {
   background: #fafcff;
   position: relative;
   min-width: 0;
-}
-
-/* Barra Superior de Atalhos Rápidos (Chips) */
-.quick-chips-bar {
-  background: #ffffff;
-  border-bottom: 1px solid var(--border-color);
-  padding: 0.45rem 0.7rem;
-  display: flex;
-  gap: 0.5rem;
-  overflow-x: auto;
-  white-space: nowrap;
-  scrollbar-width: thin;
-}
-
-.quick-chip {
-  background: var(--bg-app);
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-  padding: 0.3rem 0.65rem;
-  border-radius: var(--radius-full);
-  font-size: 0.78rem;
-  font-weight: 500;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  transition: var(--transition);
-}
-
-.quick-chip:hover {
-  background: var(--trt-blue-100);
-  border-color: var(--trt-blue-500);
-  color: var(--trt-blue-800);
-  transform: translateY(-1px);
 }
 
 /* Mensagens do Chat */
@@ -1028,10 +994,6 @@ body.chat-minimized .btn-minimize {
   .brand-badge,
   .brand-subtitle {
     display: none;
-  }
-
-  .quick-chips-bar {
-    padding: 0.5rem 0.7rem;
   }
 
   .location-card-header {

@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const listaSugestoes = document.getElementById("listaSugestoes");
 
   // Atualiza contador de sugestões pendentes
-  atualizarContadorModeracao();
+  if (moderationCounter) atualizarContadorModeracao();
 
   // Event Listeners Globais
   if (minimizeToggle) {
@@ -70,14 +70,20 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- MODAIS ---
-  document.getElementById("btnAbrirSugerir").addEventListener("click", () => {
-    abrirModal(modalSugerir);
-  });
+  const btnAbrirSugerir = document.getElementById("btnAbrirSugerir");
+  if (btnAbrirSugerir) {
+    btnAbrirSugerir.addEventListener("click", () => {
+      abrirModal(modalSugerir);
+    });
+  }
 
-  document.getElementById("btnAbrirModeracao").addEventListener("click", () => {
-    renderizarPainelModeracao();
-    abrirModal(modalModeracao);
-  });
+  const btnAbrirModeracao = document.getElementById("btnAbrirModeracao");
+  if (btnAbrirModeracao) {
+    btnAbrirModeracao.addEventListener("click", () => {
+      renderizarPainelModeracao();
+      abrirModal(modalModeracao);
+    });
+  }
 
   document.querySelectorAll(".btn-close-modal").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -620,7 +626,8 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Exportar dados atualizados em formato JSON
-  document.getElementById("btnExportarDados").addEventListener("click", () => {
+  const btnExportarDados = document.getElementById("btnExportarDados");
+  if (btnExportarDados) btnExportarDados.addEventListener("click", () => {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(locais, null, 2));
     const downloadAnchor = document.createElement("a");
     downloadAnchor.setAttribute("href", dataStr);
@@ -651,10 +658,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function atualizarContadorModeracao() {
     const pendentes = sugestoes.filter(s => s.status === "pendente").length;
     if (pendentes > 0) {
-      moderationCounter.style.display = "inline-block";
-      moderationCounter.textContent = pendentes;
+      if (moderationCounter) {
+        moderationCounter.style.display = "inline-block";
+        moderationCounter.textContent = pendentes;
+      }
     } else {
-      moderationCounter.style.display = "none";
+      if (moderationCounter) moderationCounter.style.display = "none";
     }
   }
 

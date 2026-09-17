@@ -653,6 +653,23 @@ const DADOS_LOCAIS_INICIAIS = [
     tags: ["ceiju", "forum", "1 andar", "belem"]
   },
   {
+    id: "forum-belem-1andar-cejusc",
+    nome: "CEJUSC - Centro Judiciário de Solução de Conflitos",
+    sigla: "CEJUSC",
+    categoria: "forum",
+    predio: "Fórum de Belém",
+    endereco: "Tribunal Regional do Trabalho da 8ª Região - Belém",
+    andar: "1º Andar",
+    numeroAndar: 1,
+    referencia: "Fórum de Belém, 1º andar, Centro Judiciário de Solução de Conflitos.",
+    telefone: "-",
+    ramal: "-",
+    email: "-",
+    juizTitular: "-",
+    diretor: "-",
+    tags: ["cejusc", "conciliacao", "solucao de conflitos", "forum", "1 andar"]
+  },
+  {
     id: "forum-belem-2andar-oab",
     nome: "OAB / Sala de Apoio à Advocacia",
     sigla: "OAB",
@@ -2004,7 +2021,7 @@ function carregarLocaisCompletos() {
     try {
       const parsed = JSON.parse(locaisSalvos);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        const temModeloAtual = parsed.some(loc => loc && loc.id === "sede-1andar-cojud");
+        const temModeloAtual = parsed.some(loc => loc && loc.id === "forum-belem-1andar-cejusc");
         if (temModeloAtual) {
           return parsed;
         }
