@@ -120,9 +120,10 @@ const DADOS_LOCAIS_INICIAIS = [
     referencia: "Bloco 1, 3º andar, setor de apoio a programas sociais e ações externas.",
     telefone: "-",
     ramal: "-",
-    email: "-",
+    email: "maria.dilma@trt8.jus.br",
     juizTitular: "-",
     diretor: "-",
+    responsavel: "Maria Dilma Cordeiro Pinto",
     tags: ["sesoc", "sescoc", "programas sociais", "apoio social", "bloco 1", "3 andar"]
   },
   {
@@ -186,11 +187,12 @@ const DADOS_LOCAIS_INICIAIS = [
     andar: "Térreo",
     numeroAndar: 0,
     referencia: "Bloco 2, térreo, setor de estágio e apoio à formação profissional.",
-    telefone: "-",
+    telefone: "(91) 3342-6719",
     ramal: "-",
-    email: "-",
+    email: "sepre@trt8.jus.br",
     juizTitular: "-",
     diretor: "-",
+    responsavel: "Gizele Fernandes",
     tags: ["sepre", "estagio", "estagiarios", "bloco 2", "terreo"]
   },
   {
@@ -271,11 +273,12 @@ const DADOS_LOCAIS_INICIAIS = [
     andar: "1º Andar",
     numeroAndar: 1,
     referencia: "Bloco 2, 1º andar, setor de aposentadorias e benefícios previdenciários.",
-    telefone: "-",
+    telefone: "(91) 3342-6762",
     ramal: "-",
-    email: "-",
+    email: "seabe@trt8.jus.br",
     juizTitular: "-",
     diretor: "-",
+    responsavel: "Larissa Pereira Felix de Sales",
     tags: ["seabe", "aposentadoria", "beneficios previdenciarios", "bloco 2", "1 andar"]
   },
   {
@@ -339,11 +342,12 @@ const DADOS_LOCAIS_INICIAIS = [
     andar: "2º Andar",
     numeroAndar: 2,
     referencia: "Bloco 2, 2º andar, suporte psicológico e acolhimento dos servidores.",
-    telefone: "-",
+    telefone: "(91) 4008-7223",
     ramal: "-",
-    email: "-",
+    email: "sepsi@trt8.jus.br",
     juizTitular: "-",
     diretor: "-",
+    responsavel: "José Gabriel Rossi / Luana dos Santos / Geuson Moura / Ellana Pinheiro",
     tags: ["sepsi", "psicologico", "saude mental", "codsa", "bloco 2", "2 andar"]
   },
   {
@@ -1376,7 +1380,7 @@ const DADOS_LOCAIS_INICIAIS = [
     andar: "1º Andar",
     numeroAndar: 1,
     referencia: "Edifício Sede, 1º andar, salas de sessões das Turmas e do Pleno.",
-    telefone: "-",
+    telefone: "(91) 4008-7078 / (91) 4008-7079",
     ramal: "-",
     email: "-",
     juizTitular: "-",
@@ -1512,11 +1516,12 @@ const DADOS_LOCAIS_INICIAIS = [
     andar: "Térreo",
     numeroAndar: 0,
     referencia: "Bloco 3, térreo, Seção de Sustentabilidade.",
-    telefone: "-",
+    telefone: "(91) 4008-7034",
     ramal: "-",
-    email: "-",
+    email: "seamb@trt8.jus.br",
     juizTitular: "-",
     diretor: "-",
+    responsavel: "Eveline Rose Araújo Batista Monteiro",
     tags: ["seamb", "sustentabilidade", "dias", "bloco 3", "terreo"]
   },
   {
@@ -1614,11 +1619,12 @@ const DADOS_LOCAIS_INICIAIS = [
     andar: "2º Andar",
     numeroAndar: 2,
     referencia: "Bloco 3, 2º andar, Seção de Auditoria de Contratações.",
-    telefone: "-",
+    telefone: "(91) 3342-6780",
     ramal: "-",
-    email: "-",
+    email: "seaud@trt8.jus.br",
     juizTitular: "-",
     diretor: "-",
+    responsavel: "Ronaldsson França",
     tags: ["secon", "auditoria", "contratacoes", "seaud", "bloco 3", "2 andar"]
   },
   {
@@ -1631,11 +1637,12 @@ const DADOS_LOCAIS_INICIAIS = [
     andar: "2º Andar",
     numeroAndar: 2,
     referencia: "Bloco 3, 2º andar, Seção de Auditoria de Tecnologia da Informação e Comunicação.",
-    telefone: "-",
+    telefone: "(91) 3342-6778",
     ramal: "-",
-    email: "-",
+    email: "seaud@trt8.jus.br",
     juizTitular: "-",
     diretor: "-",
+    responsavel: "Dieri do Socorro da Silva Eugenio",
     tags: ["seati", "auditoria", "tecnologia da informacao", "comunicacao", "seaud", "bloco 3", "2 andar"]
   },
   {
@@ -1648,11 +1655,12 @@ const DADOS_LOCAIS_INICIAIS = [
     andar: "2º Andar",
     numeroAndar: 2,
     referencia: "Bloco 3, 2º andar, Seção de Auditoria Financeira.",
-    telefone: "-",
+    telefone: "(91) 3342-6779",
     ramal: "-",
-    email: "-",
+    email: "seaud@trt8.jus.br",
     juizTitular: "-",
     diretor: "-",
+    responsavel: "Izaneide Pinheiro",
     tags: ["seafi", "auditoria", "financeira", "seaud", "bloco 3", "2 andar"]
   },
   {
@@ -1665,11 +1673,12 @@ const DADOS_LOCAIS_INICIAIS = [
     andar: "2º Andar",
     numeroAndar: 2,
     referencia: "Bloco 3, 2º andar, Seção de Auditoria de Gestão de Pessoas.",
-    telefone: "-",
+    telefone: "(91) 3342-6778",
     ramal: "-",
-    email: "-",
+    email: "seaud@trt8.jus.br",
     juizTitular: "-",
     diretor: "-",
+    responsavel: "Giacomo Mateus Marini",
     tags: ["seape", "auditoria", "gestao de pessoas", "seaud", "bloco 3", "2 andar"]
   },
   {
@@ -1801,11 +1810,12 @@ const DADOS_LOCAIS_INICIAIS = [
     andar: "3º Andar",
     numeroAndar: 3,
     referencia: "Bloco 3, 3º andar, Seção de Inovação.",
-    telefone: "-",
+    telefone: "(91) 3342-6761",
     ramal: "-",
-    email: "-",
+    email: "seinv@trt8.jus.br",
     juizTitular: "-",
     diretor: "-",
+    responsavel: "Márcel Abreu da Mota",
     tags: ["seinv", "inovacao", "coepp", "bloco 3", "3 andar"]
   },
   {
@@ -1818,11 +1828,12 @@ const DADOS_LOCAIS_INICIAIS = [
     andar: "3º Andar",
     numeroAndar: 3,
     referencia: "Bloco 3, 3º andar, Seção de Gestão de Processos.",
-    telefone: "-",
+    telefone: "(91) 3342-6761",
     ramal: "-",
-    email: "-",
+    email: "sepro@trt8.jus.br",
     juizTitular: "-",
     diretor: "-",
+    responsavel: "Ewerton Lucas Serrão Farias",
     tags: ["sepro", "gestao de processos", "coepp", "bloco 3", "3 andar"]
   },
   {
@@ -1835,11 +1846,12 @@ const DADOS_LOCAIS_INICIAIS = [
     andar: "3º Andar",
     numeroAndar: 3,
     referencia: "Bloco 3, 3º andar, Seção de Gestão de Riscos.",
-    telefone: "-",
+    telefone: "(91) 3342-6712",
     ramal: "-",
-    email: "-",
+    email: "seric@trt8.jus.br",
     juizTitular: "-",
     diretor: "-",
+    responsavel: "Caio César Felix da Silva",
     tags: ["seric", "gestao de riscos", "digov", "bloco 3", "3 andar"]
   },
   {
@@ -2021,7 +2033,7 @@ function carregarLocaisCompletos() {
     try {
       const parsed = JSON.parse(locaisSalvos);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        const temModeloAtual = parsed.some(loc => loc && loc.id === "forum-belem-1andar-cejusc");
+        const temModeloAtual = parsed.some(loc => loc && loc.id === "bloco3-3andar-seric" && loc.responsavel === "Caio César Felix da Silva");
         if (temModeloAtual) {
           return parsed;
         }
